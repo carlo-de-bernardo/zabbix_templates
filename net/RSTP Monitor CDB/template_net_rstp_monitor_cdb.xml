@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>6.2</version>
-    <date>2022-11-01T13:39:34Z</date>
+    <date>2022-11-01T14:41:29Z</date>
     <template_groups>
         <template_group>
             <uuid>d6992fe97ce54e2ca03b37f014f7a4de</uuid>
@@ -271,16 +271,6 @@ last(/RSTP Monitor CDB/rstp.interface_adminstatus[{#SNMPINDEX}]) &lt;&gt; 2</exp
                                     <name>RSTP Port {#SNMPINDEX} ({#PORTIFINDEX}) Not Forwarding</name>
                                     <status>DISABLED</status>
                                     <priority>WARNING</priority>
-                                    <description>The possible states for a RSTP enabled port are :
-
-1 ⇒ disabled
-2 ⇒ blocking
-3 ⇒ listening
-4 ⇒ learning
-5 ⇒ forwarding
-6 ⇒ broken
-
-It's listening or learning before forwarding, if none of these, it's Error (High).</description>
                                     <manual_close>YES</manual_close>
                                 </trigger_prototype>
                                 <trigger_prototype>
@@ -289,16 +279,6 @@ It's listening or learning before forwarding, if none of these, it's Error (High
                                     <name>RSTP Port {#SNMPINDEX} ({#PORTIFINDEX}) Preparing State</name>
                                     <status>DISABLED</status>
                                     <priority>INFO</priority>
-                                    <description>Possible RSTP Port State values are: 
-
-1 ⇒ disabled
-2 ⇒ blocking
-3 ⇒ listening
-4 ⇒ learning
-5 ⇒ forwarding
-6 ⇒ broken
-
-It's listening or learning before it's forwarding. If it's on 3 or 4 state for to long, maybe something is wrong.</description>
                                     <manual_close>YES</manual_close>
                                 </trigger_prototype>
                             </trigger_prototypes>
@@ -508,16 +488,6 @@ last(/RSTP Monitor CDB/rstp.interface_adminstatus[{#SNMPINDEX}]) = 1 and
 last(/RSTP Monitor CDB/rstp.interface_operstatus[{#SNMPINDEX}]) = 1</expression>
                             <name>RSTP Port {#SNMPINDEX} ({#PORTIFINDEX}) Blocking</name>
                             <priority>HIGH</priority>
-                            <description>The possible states for a RSTP enabled port are :
-
-1 ⇒ disabled
-2 ⇒ blocking
-3 ⇒ listening
-4 ⇒ learning
-5 ⇒ forwarding
-6 ⇒ broken
-
-When its 2 ⇒ blocking it's Blocking. That RSTP path is blocke to avoid loop, when the other path is failing, this will change to 5 ⇒ forwarding.</description>
                             <manual_close>YES</manual_close>
                         </trigger_prototype>
                     </trigger_prototypes>
