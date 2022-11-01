@@ -84,11 +84,11 @@ SOFTWARE.
 
 ## References
 
-https://en.wikipedia.org/wiki/RSTP
-https://oidref.com/
-https://oidref.com/1.3.6.1.2.1.1
-https://oidref.com/1.3.6.1.2.1.2
-https://oidref.com/1.3.6.1.2.1.17
+- https://en.wikipedia.org/wiki/RSTP
+- https://oidref.com/
+- https://oidref.com/1.3.6.1.2.1.1
+- https://oidref.com/1.3.6.1.2.1.2
+- https://oidref.com/1.3.6.1.2.1.17
 
 ## Final Notice
 
