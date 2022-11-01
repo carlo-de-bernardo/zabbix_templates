@@ -1,0 +1,713 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>6.2</version>
+    <date>2022-11-01T13:39:34Z</date>
+    <template_groups>
+        <template_group>
+            <uuid>d6992fe97ce54e2ca03b37f014f7a4de</uuid>
+            <name>CDB</name>
+        </template_group>
+        <template_group>
+            <uuid>7df96b18c230490a9a0a9e2307226338</uuid>
+            <name>Templates</name>
+        </template_group>
+        <template_group>
+            <uuid>36bff6c29af64692839d077febfc7079</uuid>
+            <name>Templates/Network devices</name>
+        </template_group>
+    </template_groups>
+    <templates>
+        <template>
+            <uuid>a918b5e5f17047979c034168c55f93be</uuid>
+            <template>RSTP Monitor CDB</template>
+            <name>RSTP Monitor CDB</name>
+            <description>SNMP template to monitor Rapid Spanning Tree Protocol status &amp; events.</description>
+            <groups>
+                <group>
+                    <name>CDB</name>
+                </group>
+                <group>
+                    <name>Templates</name>
+                </group>
+                <group>
+                    <name>Templates/Network devices</name>
+                </group>
+            </groups>
+            <items>
+                <item>
+                    <uuid>38023064946b4531a38af5b225db2011</uuid>
+                    <name>RSTP Bridge Address</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>BRIDGE-MIB::dot1dBaseBridgeAddress.0</snmp_oid>
+                    <key>rstp.bridge_address</key>
+                    <delay>{$ITEMS_INTERVAL}</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>RSTP</value>
+                        </tag>
+                        <tag>
+                            <tag>RSTP</tag>
+                            <value>Status Info</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>25375335e7fa4a7ebd2797af3be0380c</uuid>
+                    <name>RSTP Bridge Priority</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>BRIDGE-MIB::dot1dStpPriority.0</snmp_oid>
+                    <key>rstp.bridge_priority</key>
+                    <delay>{$ITEMS_INTERVAL}</delay>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>RSTP</value>
+                        </tag>
+                        <tag>
+                            <tag>RSTP</tag>
+                            <value>Status Info</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>15a4aba304d340e1bdb6d0815bfdb85f</uuid>
+                    <name>RSTP Designated Root</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>BRIDGE-MIB::dot1dStpDesignatedRoot.0</snmp_oid>
+                    <key>rstp.designated_root</key>
+                    <delay>{$ITEMS_INTERVAL}</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>RSTP</value>
+                        </tag>
+                        <tag>
+                            <tag>RSTP</tag>
+                            <value>Status Info</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>a6d6b121a8444ea69eb6319c44be7c72</uuid>
+                            <expression>abs(change(/RSTP Monitor CDB/rstp.designated_root))&gt;1</expression>
+                            <name>RSTP Designated Root Change (now is {ITEM.LASTVALUE}) on {HOST.NAME}</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>ade1439801d04a908953837fd18ffca9</uuid>
+                    <name>RSTP Protocol Specification</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>BRIDGE-MIB::dot1dStpProtocolSpecification.0</snmp_oid>
+                    <key>rstp.protocol_specification</key>
+                    <delay>{$ITEMS_INTERVAL}</delay>
+                    <valuemap>
+                        <name>RSTP Protocol Specification</name>
+                    </valuemap>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>RSTP</value>
+                        </tag>
+                        <tag>
+                            <tag>RSTP</tag>
+                            <value>Status Info</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>f47b4a021b04418a8f2f21ca14a66211</uuid>
+                    <name>RSTP Root Cost</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>BRIDGE-MIB::dot1dStpRootCost.0</snmp_oid>
+                    <key>rstp.root_cost</key>
+                    <delay>{$ITEMS_INTERVAL}</delay>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>RSTP</value>
+                        </tag>
+                        <tag>
+                            <tag>RSTP</tag>
+                            <value>Status Info</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>5d2061fb20d64c5cb3cdbfeaf7366adf</uuid>
+                    <name>RSTP Root Port</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>BRIDGE-MIB::dot1dStpRootPort.0</snmp_oid>
+                    <key>rstp.root_port</key>
+                    <delay>{$ITEMS_INTERVAL}</delay>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>RSTP</value>
+                        </tag>
+                        <tag>
+                            <tag>RSTP</tag>
+                            <value>Status Info</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>953e10302afc48f494f4c0589dacc242</uuid>
+                            <expression>abs(change(/RSTP Monitor CDB/rstp.root_port))&gt;1</expression>
+                            <name>RSTP Root Port Change (now is {ITEM.LASTVALUE}) on {HOST.NAME}</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>62dd267351234a61b8d54972aba9233e</uuid>
+                    <name>RSTP Time Since Last Topology Change</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>BRIDGE-MIB::dot1dStpTimeSinceTopologyChange.0</snmp_oid>
+                    <key>rstp.topology_uptime</key>
+                    <delay>{$ITEMS_INTERVAL}</delay>
+                    <units>s</units>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <parameters>
+                                <parameter>0.01</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>RSTP</value>
+                        </tag>
+                        <tag>
+                            <tag>RSTP</tag>
+                            <value>Status Info</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>76b3a08f5acb4b058faaa3007502a820</uuid>
+                            <expression>last(/RSTP Monitor CDB/rstp.topology_uptime)&lt;10m</expression>
+                            <name>RSTP Topology Change on {HOST.NAME}</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>441ab48776b84084bf79ff27a60e311c</uuid>
+                    <name>SNMP System Uptime</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>DISMAN-EVENT-MIB::sysUpTimeInstance</snmp_oid>
+                    <key>snmp.system_uptime</key>
+                    <delay>{$ITEMS_INTERVAL}</delay>
+                    <units>s</units>
+                    <description>Useful to check if last topology change is equal to uptime</description>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <parameters>
+                                <parameter>0.01</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>RSTP</value>
+                        </tag>
+                        <tag>
+                            <tag>RSTP</tag>
+                            <value>Status Info</value>
+                        </tag>
+                        <tag>
+                            <tag>System</tag>
+                            <value>Uptime</value>
+                        </tag>
+                    </tags>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <uuid>bcd943bf0e444a0aa85e16030131e295</uuid>
+                    <name>RSTP Port Discovery</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#PORTINDEX},dot1dBasePort,{#PORTIFINDEX},dot1dBasePortIfIndex]</snmp_oid>
+                    <key>rstp.port.discovery</key>
+                    <delay>{$RSTP_PORT_DISCOVERY_INTERVAL}</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <uuid>d033b850e0a049a7a753bca40ebee882</uuid>
+                            <name>RSTP Port {#SNMPINDEX} ({#PORTIFINDEX}): Interface Admin Status</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>ifAdminStatus.{#PORTIFINDEX}</snmp_oid>
+                            <key>rstp.interface_adminstatus[{#SNMPINDEX}]</key>
+                            <delay>{$ITEMS_INTERVAL}</delay>
+                            <description>Please note that #PORTIFINDEX is being used ({#PORTIFINDEX})</description>
+                            <valuemap>
+                                <name>SNMP Interface Admin Status</name>
+                            </valuemap>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>RSTP</value>
+                                </tag>
+                                <tag>
+                                    <tag>RSTP</tag>
+                                    <value>Port info</value>
+                                </tag>
+                            </tags>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>30b297f74b0c463bab606956ee8cf43a</uuid>
+                                    <expression>(last(/RSTP Monitor CDB/rstp.interface_adminstatus[{#SNMPINDEX}]) &gt; 5 or last(/RSTP Monitor CDB/rstp.interface_adminstatus[{#SNMPINDEX}]) &lt; 3 ) and 
+last(/RSTP Monitor CDB/rstp.interface_adminstatus[{#SNMPINDEX}]) &lt;&gt; 2</expression>
+                                    <name>RSTP Port {#SNMPINDEX} ({#PORTIFINDEX}) Not Forwarding</name>
+                                    <status>DISABLED</status>
+                                    <priority>WARNING</priority>
+                                    <description>The possible states for a RSTP enabled port are :
+
+1 ⇒ disabled
+2 ⇒ blocking
+3 ⇒ listening
+4 ⇒ learning
+5 ⇒ forwarding
+6 ⇒ broken
+
+It's listening or learning before forwarding, if none of these, it's Error (High).</description>
+                                    <manual_close>YES</manual_close>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <uuid>b7a210ebedfc496085a82df744c6e270</uuid>
+                                    <expression>last(/RSTP Monitor CDB/rstp.interface_adminstatus[{#SNMPINDEX}]) &gt; 2 and last(/RSTP Monitor CDB/rstp.interface_adminstatus[{#SNMPINDEX}]) &lt; 5</expression>
+                                    <name>RSTP Port {#SNMPINDEX} ({#PORTIFINDEX}) Preparing State</name>
+                                    <status>DISABLED</status>
+                                    <priority>INFO</priority>
+                                    <description>Possible RSTP Port State values are: 
+
+1 ⇒ disabled
+2 ⇒ blocking
+3 ⇒ listening
+4 ⇒ learning
+5 ⇒ forwarding
+6 ⇒ broken
+
+It's listening or learning before it's forwarding. If it's on 3 or 4 state for to long, maybe something is wrong.</description>
+                                    <manual_close>YES</manual_close>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>40610fb9a11144df9d28df74e30ac91a</uuid>
+                            <name>RSTP Port {#SNMPINDEX} ({#PORTIFINDEX}): Interface Operational Status</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>ifOperStatus.{#PORTIFINDEX}</snmp_oid>
+                            <key>rstp.interface_operstatus[{#SNMPINDEX}]</key>
+                            <delay>{$ITEMS_INTERVAL}</delay>
+                            <description>Please note that #PORTIFINDEX is being used ({#PORTIFINDEX})</description>
+                            <valuemap>
+                                <name>SNMP Interface Operational Status</name>
+                            </valuemap>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>RSTP</value>
+                                </tag>
+                                <tag>
+                                    <tag>RSTP</tag>
+                                    <value>Port info</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>e9fe4a3a2d1b4700b7372ac351a87729</uuid>
+                            <name>RSTP Port {#SNMPINDEX} ({#PORTIFINDEX}): Port Designated Bridge</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>dot1dStpPortDesignatedBridge.{#SNMPINDEX}</snmp_oid>
+                            <key>rstp.port_designated_bridge[{#SNMPINDEX}]</key>
+                            <delay>{$ITEMS_INTERVAL}</delay>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>RSTP</value>
+                                </tag>
+                                <tag>
+                                    <tag>RSTP</tag>
+                                    <value>Port info</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>c3f140c0e8f44e229f1e96e1766aa42c</uuid>
+                            <name>RSTP Port {#SNMPINDEX} ({#PORTIFINDEX}): Port Designated Cost</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>dot1dStpPortDesignatedCost.{#SNMPINDEX}</snmp_oid>
+                            <key>rstp.port_designated_cost[{#SNMPINDEX}]</key>
+                            <delay>{$ITEMS_INTERVAL}</delay>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>RSTP</value>
+                                </tag>
+                                <tag>
+                                    <tag>RSTP</tag>
+                                    <value>Port info</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>32db59dabd6a48118387a0e9f691123a</uuid>
+                            <name>RSTP Port {#SNMPINDEX} ({#PORTIFINDEX}): Port Designated Port</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>dot1dStpPortDesignatedPort.{#SNMPINDEX}</snmp_oid>
+                            <key>rstp.port_designated_port[{#SNMPINDEX}]</key>
+                            <delay>{$ITEMS_INTERVAL}</delay>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>RSTP</value>
+                                </tag>
+                                <tag>
+                                    <tag>RSTP</tag>
+                                    <value>Port info</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>5a3124957f254502beca8df5b8ca024a</uuid>
+                            <name>RSTP Port {#SNMPINDEX} ({#PORTIFINDEX}): Port Designated Root</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>dot1dStpPortDesignatedRoot.{#SNMPINDEX}</snmp_oid>
+                            <key>rstp.port_designated_root[{#SNMPINDEX}]</key>
+                            <delay>{$ITEMS_INTERVAL}</delay>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>RSTP</value>
+                                </tag>
+                                <tag>
+                                    <tag>RSTP</tag>
+                                    <value>Port info</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>1040636d9d8e47caabba7465048eb9ee</uuid>
+                            <name>RSTP Port {#SNMPINDEX} ({#PORTIFINDEX}): Port Enable</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>dot1dStpPortEnable.{#SNMPINDEX}</snmp_oid>
+                            <key>rstp.port_enable[{#SNMPINDEX}]</key>
+                            <delay>{$ITEMS_INTERVAL}</delay>
+                            <valuemap>
+                                <name>RSTP Port Enable</name>
+                            </valuemap>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>RSTP</value>
+                                </tag>
+                                <tag>
+                                    <tag>RSTP</tag>
+                                    <value>Port info</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>487d86ad525b4d5b805ed6b5d3f08e4e</uuid>
+                            <name>RSTP Port {#SNMPINDEX} ({#PORTIFINDEX}): Port Forward Transitions</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>dot1dStpPortForwardTransitions.{#SNMPINDEX}</snmp_oid>
+                            <key>rstp.port_forward_transitions[{#SNMPINDEX}]</key>
+                            <delay>{$ITEMS_INTERVAL}</delay>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>RSTP</value>
+                                </tag>
+                                <tag>
+                                    <tag>RSTP</tag>
+                                    <value>Port info</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>8f490e6d74b84423a6558e18921bed79</uuid>
+                            <name>RSTP Port {#SNMPINDEX} ({#PORTIFINDEX}): Port Path Cost</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>dot1dStpPortPathCost.{#SNMPINDEX}</snmp_oid>
+                            <key>rstp.port_path_cost[{#SNMPINDEX}]</key>
+                            <delay>{$ITEMS_INTERVAL}</delay>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>RSTP</value>
+                                </tag>
+                                <tag>
+                                    <tag>RSTP</tag>
+                                    <value>Port info</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>b2814a8fc8194624948de18307ba9f97</uuid>
+                            <name>RSTP Port {#SNMPINDEX} ({#PORTIFINDEX}): Port Priority</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>dot1dStpPortPriority.{#SNMPINDEX}</snmp_oid>
+                            <key>rstp.port_priority[{#SNMPINDEX}]</key>
+                            <delay>{$ITEMS_INTERVAL}</delay>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>RSTP</value>
+                                </tag>
+                                <tag>
+                                    <tag>RSTP</tag>
+                                    <value>Port info</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>2a8e90d8be0d47a7b695a9db8d560926</uuid>
+                            <name>RSTP Port {#SNMPINDEX} ({#PORTIFINDEX}): Port State</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>dot1dStpPortState.{#SNMPINDEX}</snmp_oid>
+                            <key>rstp.port_state[{#SNMPINDEX}]</key>
+                            <delay>{$ITEMS_INTERVAL}</delay>
+                            <valuemap>
+                                <name>RSTP Port State</name>
+                            </valuemap>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>RSTP</value>
+                                </tag>
+                                <tag>
+                                    <tag>RSTP</tag>
+                                    <value>Port info</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <uuid>66728425d3e0478580f07a16a6a55ea0</uuid>
+                            <expression>last(/RSTP Monitor CDB/rstp.port_state[{#SNMPINDEX}]) = 2 and
+last(/RSTP Monitor CDB/rstp.interface_adminstatus[{#SNMPINDEX}]) = 1 and
+last(/RSTP Monitor CDB/rstp.interface_operstatus[{#SNMPINDEX}]) = 1</expression>
+                            <name>RSTP Port {#SNMPINDEX} ({#PORTIFINDEX}) Blocking</name>
+                            <priority>HIGH</priority>
+                            <description>The possible states for a RSTP enabled port are :
+
+1 ⇒ disabled
+2 ⇒ blocking
+3 ⇒ listening
+4 ⇒ learning
+5 ⇒ forwarding
+6 ⇒ broken
+
+When its 2 ⇒ blocking it's Blocking. That RSTP path is blocke to avoid loop, when the other path is failing, this will change to 5 ⇒ forwarding.</description>
+                            <manual_close>YES</manual_close>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <uuid>f1b3ca2d6dc64e07b08d12df99ea35be</uuid>
+                    <name>SNMP Interface Discovery</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#IFOPERSTATUS},1.3.6.1.2.1.2.2.1.8,{#IFADMINSTATUS},1.3.6.1.2.1.2.2.1.7,{#IFALIAS},1.3.6.1.2.1.31.1.1.1.18,{#IFNAME},1.3.6.1.2.1.31.1.1.1.1,{#IFDESCR},1.3.6.1.2.1.2.2.1.2,{#IFTYPE},1.3.6.1.2.1.2.2.1.3]</snmp_oid>
+                    <key>snmp.if.discovery</key>
+                    <delay>{$INTERFACE_DISCOVERY_INTERVAL}</delay>
+                    <description>Interface discovery to help RSTP port identification via #PORTIFINDEX and #IFDESCR.
+
+NOTE: I din't find a way to collect interface description on RSTP port discovery.</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <uuid>4eafee70c14845439b1b8746f8243034</uuid>
+                            <name>Interface {#SNMPINDEX} ({#IFNAME}) Description</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>ifDescr.{#SNMPINDEX}</snmp_oid>
+                            <key>rstp.if.descr[{#SNMPINDEX}]</key>
+                            <delay>{$ITEMS_INTERVAL}</delay>
+                            <history>1d</history>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <tags>
+                                <tag>
+                                    <tag>component</tag>
+                                    <value>network</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+            <tags>
+                <tag>
+                    <tag>Application</tag>
+                    <value>RSTP</value>
+                </tag>
+            </tags>
+            <macros>
+                <macro>
+                    <macro>{$INTERFACE_DISCOVERY_INTERVAL}</macro>
+                    <value>30m</value>
+                    <description>Update interval for interfaces (names(description) discovery</description>
+                </macro>
+                <macro>
+                    <macro>{$ITEMS_INTERVAL}</macro>
+                    <value>1m</value>
+                    <description>Update interval for all items</description>
+                </macro>
+                <macro>
+                    <macro>{$RSTP_PORT_DISCOVERY_INTERVAL}</macro>
+                    <value>30m</value>
+                    <description>Update interval for &quot;RSTP&quot; (bridge) ports discovery</description>
+                </macro>
+            </macros>
+            <valuemaps>
+                <valuemap>
+                    <uuid>7763f5dfb861406fb9ba6130bad04c7c</uuid>
+                    <name>RSTP Port Enable</name>
+                    <mappings>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>enabled</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>disabled</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+                <valuemap>
+                    <uuid>b0b7df3889904d6ba070c79249f9430a</uuid>
+                    <name>RSTP Port State</name>
+                    <mappings>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>disabled</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>blocking</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>3</value>
+                            <newvalue>listening</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>4</value>
+                            <newvalue>learning</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>5</value>
+                            <newvalue>forwarding</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>6</value>
+                            <newvalue>broken</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+                <valuemap>
+                    <uuid>6f6535bbe1034c79a49588ef8e9b81c5</uuid>
+                    <name>RSTP Protocol Specification</name>
+                    <mappings>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>unknown</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>decLb100</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>3</value>
+                            <newvalue>ieee8021d</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+                <valuemap>
+                    <uuid>78ca70c172bb48a69c1fc40029c9a991</uuid>
+                    <name>SNMP Interface Admin Status</name>
+                    <mappings>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>up</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>down</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>3</value>
+                            <newvalue>testing</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+                <valuemap>
+                    <uuid>dc8c613bfb7d4c80b381ea84dd4430cc</uuid>
+                    <name>SNMP Interface Operational Status</name>
+                    <mappings>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>up</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>down</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>3</value>
+                            <newvalue>testing</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>4</value>
+                            <newvalue>unknown</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>5</value>
+                            <newvalue>dormant</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>6</value>
+                            <newvalue>notPresent</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>7</value>
+                            <newvalue>lowerLayerDown</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+            </valuemaps>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <uuid>adcd842f78b34548873b86f7948e36e0</uuid>
+            <name>Time Since Last Topology Change</name>
+            <graph_items>
+                <graph_item>
+                    <color>199C0D</color>
+                    <calc_fnc>ALL</calc_fnc>
+                    <item>
+                        <host>RSTP Monitor CDB</host>
+                        <key>rstp.topology_uptime</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+</zabbix_export>
