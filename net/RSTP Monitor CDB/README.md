@@ -92,5 +92,5 @@ SOFTWARE.
 
 ## Final Notice
 
-> This template has not been published on the official [Zabbix Community Template Repository](https://github.com/zabbix/community-templates) because is far from being perfect.
+> This template has not been published on the official [Zabbix Community Template Repository](https://github.com/zabbix/community-templates) because it is far from being perfect.
 > Use it as a starting point and adjust it to your monitoring needs! ;-) 
