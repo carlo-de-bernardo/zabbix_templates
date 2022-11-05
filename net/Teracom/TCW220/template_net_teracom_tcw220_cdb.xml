@@ -1,0 +1,701 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>6.2</version>
+    <date>2022-11-05T09:59:53Z</date>
+    <template_groups>
+        <template_group>
+            <uuid>d6992fe97ce54e2ca03b37f014f7a4de</uuid>
+            <name>CDB</name>
+        </template_group>
+        <template_group>
+            <uuid>ce274db688e74c8bafb57e8d2f53e3ca</uuid>
+            <name>Network Sensors</name>
+        </template_group>
+        <template_group>
+            <uuid>36bff6c29af64692839d077febfc7079</uuid>
+            <name>Templates/Network devices</name>
+        </template_group>
+    </template_groups>
+    <templates>
+        <template>
+            <uuid>838fe6f749e749c69ae07134ad3a3377</uuid>
+            <template>Teracom TCW220</template>
+            <name>Teracom TCW220</name>
+            <description>https://www.teracomsystems.com/ethernet/ethernet-data-logger-tcw220/
+
+Teracom TCW220 support up to 8 sensor, with 1 o 2 different readings depending on sensor type (TSH206 is and humidity and temperature sensor returning 2 readings).
+
+This template contains only 1 item for sensor1/value1 (S1V1). The other 15 items must be created following these criteria:
+- take a look at the existing item for sensor1/value1 (tcw220.sensor1.value1) and adjust it according to your monitoring needs setting the correct unit depending on the sensor in use
+- adjust the trigger and/or create new ones for this item
+- pay attention to the &quot;observation time&quot;: triggers generate events after average threshold has been reached after 10 minutes to avoid firing too many events in case of a fluctuating signal on analog inputs and fluctuating measurements on sensors
+- adjust the threshold macros for this item
+- clone and rename the threshold macros to be used on the other 15 readings (if needed)
+- clone the sensor1/value1 item for all your sensors, change keys and OIDs paying attention to use the following OIDs for each new item
+
+  S1V1: 1.3.6.1.4.1.38783.2.3.1.1.1.0
+  S1V2: 1.3.6.1.4.1.38783.2.3.1.1.2.0
+  S2V1: 1.3.6.1.4.1.38783.2.3.1.2.1.0
+  S2V2: 1.3.6.1.4.1.38783.2.3.1.2.2.0
+  S3V1: 1.3.6.1.4.1.38783.2.3.1.3.1.0
+  S3V2: 1.3.6.1.4.1.38783.2.3.1.3.2.0
+  S4V1: 1.3.6.1.4.1.38783.2.3.1.4.1.0
+  S4V2: 1.3.6.1.4.1.38783.2.3.1.4.2.0 
+  S5V1: 1.3.6.1.4.1.38783.2.3.1.5.1.0
+  S5V2: 1.3.6.1.4.1.38783.2.3.1.5.2.0
+  S6V1: 1.3.6.1.4.1.38783.2.3.1.6.1.0
+  S6V2: 1.3.6.1.4.1.38783.2.3.1.6.2.0
+  S7V1: 1.3.6.1.4.1.38783.2.3.1.7.1.0
+  S7V2: 1.3.6.1.4.1.38783.2.3.1.7.2.0
+  S8V1: 1.3.6.1.4.1.38783.2.3.1.8.1.0
+  S8V2: 1.3.6.1.4.1.38783.2.3.1.8.2.0
+
+- clone the triggers changing macros and keys used 
+- clone the graph changing graph name and item key
+
+Carlo De Bernardo</description>
+            <groups>
+                <group>
+                    <name>CDB</name>
+                </group>
+                <group>
+                    <name>Network Sensors</name>
+                </group>
+                <group>
+                    <name>Templates/Network devices</name>
+                </group>
+            </groups>
+            <items>
+                <item>
+                    <uuid>4b3ebcfa66e84722af31efba7857ce78</uuid>
+                    <name>System Uptime</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>sysUpTimeInstance</snmp_oid>
+                    <key>system.uptime</key>
+                    <delay>10m</delay>
+                    <units>s</units>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <parameters>
+                                <parameter>0.01</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>component</tag>
+                            <value>system</value>
+                        </tag>
+                        <tag>
+                            <tag>TCW220</tag>
+                            <value>info</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>1d33be64be9e41bf8f293927a524780c</uuid>
+                            <expression>last(/Teracom TCW220/system.uptime)&lt;10m</expression>
+                            <name>{HOST.NAME} has been restarted (Uptime: {ITEM.VALUE})</name>
+                            <priority>WARNING</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>717559a522b04c17ad8345d890a3c03e</uuid>
+                    <name>Analog 1 Description</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.38783.2.2.2.2.1.1.0</snmp_oid>
+                    <key>tcw220.analog1.description</key>
+                    <delay>60m</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <tags>
+                        <tag>
+                            <tag>TCW220</tag>
+                            <value>info</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>7361da8606ea43309fd7845181d1e732</uuid>
+                    <name>Analog 1 Value</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.38783.2.3.2.1.0</snmp_oid>
+                    <key>tcw220.analog1.value</key>
+                    <delay>{$MEASUREMENT_INTERVAL}</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>V</units>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <parameters>
+                                <parameter>0.001</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>TCW220</tag>
+                            <value>measurements</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>c052aa095615476ba2a1bc72246edc3d</uuid>
+                            <expression>avg(/Teracom TCW220/tcw220.analog1.value,10m)&gt;{$ANALOG1_MAX_THRESHOLD}</expression>
+                            <name>Analog 1 Voltage ({ITEM.VALUE}) on {HOST.NAME} is above {$ANALOG1_MAX_THRESHOLD} V</name>
+                            <priority>WARNING</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                        <trigger>
+                            <uuid>ed81899c0a6e4cfcaeb5a54d79e63c60</uuid>
+                            <expression>avg(/Teracom TCW220/tcw220.analog1.value,10m)&lt;{$ANALOG1_MIN_THRESHOLD}</expression>
+                            <name>Analog 1 Voltage ({ITEM.VALUE}) on {HOST.NAME} is below {$ANALOG1_MIN_THRESHOLD} V</name>
+                            <priority>WARNING</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>a10baef860d54febbc87e0d755091b7e</uuid>
+                    <name>Analog 2 Description</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.38783.2.2.2.2.2.1.0</snmp_oid>
+                    <key>tcw220.analog2.description</key>
+                    <delay>60m</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <tags>
+                        <tag>
+                            <tag>TCW220</tag>
+                            <value>info</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>5d39cb5495d84f5ea5a91819b8d8bb43</uuid>
+                    <name>Analog 2 Value</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.38783.2.3.2.2.0</snmp_oid>
+                    <key>tcw220.analog2.value</key>
+                    <delay>{$MEASUREMENT_INTERVAL}</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>V</units>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <parameters>
+                                <parameter>0.001</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>TCW220</tag>
+                            <value>measurements</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>b38bd50cb3a54968a49cec8458d7d83c</uuid>
+                            <expression>avg(/Teracom TCW220/tcw220.analog2.value,10m)&gt;{$ANALOG2_MAX_THRESHOLD}</expression>
+                            <name>Analog 2 Voltage ({ITEM.VALUE}) on {HOST.NAME} is above {$ANALOG2_MAX_THRESHOLD} V</name>
+                            <priority>WARNING</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                        <trigger>
+                            <uuid>4f804202900d40589d644189d12740d8</uuid>
+                            <expression>avg(/Teracom TCW220/tcw220.analog2.value,10m)&lt;{$ANALOG2_MIN_THRESHOLD}</expression>
+                            <name>Analog 2 Voltage ({ITEM.VALUE}) on {HOST.NAME} is below {$ANALOG2_MIN_THRESHOLD} V</name>
+                            <priority>WARNING</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>e545e011bc794350b49e5511a4ecc554</uuid>
+                    <name>Digital Input 1 Description</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.38783.2.2.2.3.1.0</snmp_oid>
+                    <key>tcw220.digital1.description</key>
+                    <delay>60m</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <tags>
+                        <tag>
+                            <tag>TCW220</tag>
+                            <value>info</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>3621ad3c66a54d719b8a2b9a40509679</uuid>
+                    <name>Digital Input 1 State</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.38783.2.3.3.1.0</snmp_oid>
+                    <key>tcw220.digital1.state</key>
+                    <delay>{$MEASUREMENT_INTERVAL}</delay>
+                    <valuemap>
+                        <name>Digital Input State</name>
+                    </valuemap>
+                    <tags>
+                        <tag>
+                            <tag>TCW220</tag>
+                            <value>measurements</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>2724156192aa41dcbd022e7d1493f1ab</uuid>
+                            <expression>abs(change(/Teracom TCW220/tcw220.digital1.state))=1</expression>
+                            <recovery_mode>NONE</recovery_mode>
+                            <name>Digital Input 1 changed state: now {ITEM.LASTVALUE}</name>
+                            <priority>INFO</priority>
+                            <description>Please note that this trigger will generate an event everytime relay status change. Problem must be closed manually.</description>
+                            <type>MULTIPLE</type>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>3bf1d7e540264f8fbabeeeed81f90412</uuid>
+                    <name>Digital Input 2 Description</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.38783.2.2.2.3.2.0</snmp_oid>
+                    <key>tcw220.digital2.description</key>
+                    <delay>60m</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <tags>
+                        <tag>
+                            <tag>TCW220</tag>
+                            <value>info</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>2b7c9a0a6c7d497ea47bb07baed15df4</uuid>
+                    <name>Digital Input 2 State</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.38783.2.3.3.2.0</snmp_oid>
+                    <key>tcw220.digital2.state</key>
+                    <delay>{$MEASUREMENT_INTERVAL}</delay>
+                    <valuemap>
+                        <name>Digital Input State</name>
+                    </valuemap>
+                    <tags>
+                        <tag>
+                            <tag>TCW220</tag>
+                            <value>measurements</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>9c9f3daab8194978bcea130cae081d61</uuid>
+                            <expression>abs(change(/Teracom TCW220/tcw220.digital2.state))=1</expression>
+                            <recovery_mode>NONE</recovery_mode>
+                            <name>Digital Input 2 changed state: now {ITEM.LASTVALUE}</name>
+                            <priority>INFO</priority>
+                            <description>Please note that this trigger will generate an event everytime relay status change. Problem must be closed manually.</description>
+                            <type>MULTIPLE</type>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>98227db0eb01440ea26801415ae54678</uuid>
+                    <name>Device ID</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.38783.2.2.1.1.0</snmp_oid>
+                    <key>tcw220.net.device_id</key>
+                    <delay>60m</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <tags>
+                        <tag>
+                            <tag>TCW220</tag>
+                            <value>info</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>7147e901e16443e787a9198b3fd09464</uuid>
+                    <name>Host name</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.38783.2.2.1.2.0</snmp_oid>
+                    <key>tcw220.net.host_name</key>
+                    <delay>60m</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <tags>
+                        <tag>
+                            <tag>TCW220</tag>
+                            <value>info</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>56ba4d20be8a405ca03b84f0f1815a2d</uuid>
+                    <name>Relay 1 Description</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.38783.2.2.2.4.1.1.0</snmp_oid>
+                    <key>tcw220.relay1.description</key>
+                    <delay>60m</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <tags>
+                        <tag>
+                            <tag>TCW220</tag>
+                            <value>info</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>8badb8842b424a07bc87b76cd8dac872</uuid>
+                    <name>Relay 1 State</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.38783.2.3.4.1.1.0</snmp_oid>
+                    <key>tcw220.relay1.state</key>
+                    <delay>{$MEASUREMENT_INTERVAL}</delay>
+                    <valuemap>
+                        <name>Relay State</name>
+                    </valuemap>
+                    <tags>
+                        <tag>
+                            <tag>TCW220</tag>
+                            <value>measurements</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>07f62730b475444ea76c3f6a825b9795</uuid>
+                            <expression>abs(change(/Teracom TCW220/tcw220.relay1.state))=1</expression>
+                            <recovery_mode>NONE</recovery_mode>
+                            <name>Relay 1 changed state: now {ITEM.LASTVALUE}</name>
+                            <priority>INFO</priority>
+                            <description>Please note that this trigger will generate an event everytime relay status change. Problem must be closed manually.</description>
+                            <type>MULTIPLE</type>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>d3348234d22140adba882da6969290e7</uuid>
+                    <name>Relay 2 Description</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.38783.2.2.2.4.2.1.0</snmp_oid>
+                    <key>tcw220.relay2.description</key>
+                    <delay>60m</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <tags>
+                        <tag>
+                            <tag>TCW220</tag>
+                            <value>info</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>c9b45cd7782e43fc917d150721cc9af0</uuid>
+                    <name>Relay 2 State</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.38783.2.3.4.2.1.0</snmp_oid>
+                    <key>tcw220.relay2.state</key>
+                    <delay>{$MEASUREMENT_INTERVAL}</delay>
+                    <valuemap>
+                        <name>Relay State</name>
+                    </valuemap>
+                    <tags>
+                        <tag>
+                            <tag>TCW220</tag>
+                            <value>measurements</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>df68e2a3b5ea4262994e5110badc7e2f</uuid>
+                            <expression>abs(change(/Teracom TCW220/tcw220.relay2.state))=1</expression>
+                            <recovery_mode>NONE</recovery_mode>
+                            <name>Relay 2 changed state: now {ITEM.LASTVALUE}</name>
+                            <priority>INFO</priority>
+                            <description>Please note that this trigger will generate an event everytime relay status change. Problem must be closed manually.</description>
+                            <type>MULTIPLE</type>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>636b0210cb4d4ce68960b867042b6fa9</uuid>
+                    <name>Sensor 1 Description</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.38783.2.2.2.1.1.1.0</snmp_oid>
+                    <key>tcw220.sensor1.description</key>
+                    <delay>60m</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <tags>
+                        <tag>
+                            <tag>TCW220</tag>
+                            <value>info</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>ca5eb21842b8488ca866422f90696f28</uuid>
+                    <name>Sensor 1 Value 1</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.38783.2.3.1.1.1.0</snmp_oid>
+                    <key>tcw220.sensor1.value1</key>
+                    <delay>{$MEASUREMENT_INTERVAL}</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>°C</units>
+                    <description>Change unit according to the type of connected sensor</description>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <parameters>
+                                <parameter>0.001</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>TCW220</tag>
+                            <value>measurements</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>dedf5d8ef8f949d7995dacd6c1d85d3d</uuid>
+                            <expression>avg(/Teracom TCW220/tcw220.sensor1.value1,10m)&gt;{$S1V1_MAX_THRESHOLD}</expression>
+                            <name>Sensor 1 Value 1 ({ITEM.VALUE}) on {HOST.NAME} is above {$S1V1_MAX_THRESHOLD}</name>
+                            <priority>WARNING</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                        <trigger>
+                            <uuid>85b23b8f456c4658a2d1e82aa87eff98</uuid>
+                            <expression>avg(/Teracom TCW220/tcw220.sensor1.value1,10m)&lt;{$S1V1_MIN_THRESHOLD}</expression>
+                            <name>Sensor 1 Value 1 ({ITEM.VALUE}) on {HOST.NAME} is below {$S1V1_MIN_THRESHOLD}</name>
+                            <priority>WARNING</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>5976817ecd0c41869b74f448b5c74418</uuid>
+                    <name>Sensor 2 Description</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.38783.2.2.2.1.2.1.0</snmp_oid>
+                    <key>tcw220.sensor2.description</key>
+                    <delay>60m</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <tags>
+                        <tag>
+                            <tag>TCW220</tag>
+                            <value>info</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>9f0526b4c44842dfa76a1cd2d8696470</uuid>
+                    <name>Sensor 3 Description</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.38783.2.2.2.1.3.1.0</snmp_oid>
+                    <key>tcw220.sensor3.description</key>
+                    <delay>60m</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <tags>
+                        <tag>
+                            <tag>TCW220</tag>
+                            <value>info</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>e74692e998f64c43b5281a67a840cbf3</uuid>
+                    <name>Sensor 4 Description</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.38783.2.2.2.1.4.1.0</snmp_oid>
+                    <key>tcw220.sensor4.description</key>
+                    <delay>60m</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <tags>
+                        <tag>
+                            <tag>TCW220</tag>
+                            <value>info</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>0fdc4074911642ef9ae57bb221077ef6</uuid>
+                    <name>Sensor 5 Description</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.38783.2.2.2.1.5.1.0</snmp_oid>
+                    <key>tcw220.sensor5.description</key>
+                    <delay>60m</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <tags>
+                        <tag>
+                            <tag>TCW220</tag>
+                            <value>info</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>5459432464d64e22a7a13a8433349411</uuid>
+                    <name>Sensor 6 Description</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.38783.2.2.2.1.6.1.0</snmp_oid>
+                    <key>tcw220.sensor6.description</key>
+                    <delay>60m</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <tags>
+                        <tag>
+                            <tag>TCW220</tag>
+                            <value>info</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>cd833492483b46948d6fe8bcb3510669</uuid>
+                    <name>Sensor 7 Description</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.38783.2.2.2.1.7.1.0</snmp_oid>
+                    <key>tcw220.sensor7.description</key>
+                    <delay>60m</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <tags>
+                        <tag>
+                            <tag>TCW220</tag>
+                            <value>info</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>c81a6831715e499398cded472162857e</uuid>
+                    <name>Sensor 8 Description</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.38783.2.2.2.1.8.1.0</snmp_oid>
+                    <key>tcw220.sensor8.description</key>
+                    <delay>60m</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <tags>
+                        <tag>
+                            <tag>TCW220</tag>
+                            <value>info</value>
+                        </tag>
+                    </tags>
+                </item>
+            </items>
+            <tags>
+                <tag>
+                    <tag>Teracom</tag>
+                    <value>TCW220</value>
+                </tag>
+            </tags>
+            <macros>
+                <macro>
+                    <macro>{$ANALOG1_MAX_THRESHOLD}</macro>
+                    <value>10</value>
+                    <description>analog inputs with 0 to 10VDC range</description>
+                </macro>
+                <macro>
+                    <macro>{$ANALOG1_MIN_THRESHOLD}</macro>
+                    <value>0</value>
+                    <description>analog inputs with 0 to 10VDC range</description>
+                </macro>
+                <macro>
+                    <macro>{$ANALOG2_MAX_THRESHOLD}</macro>
+                    <value>10</value>
+                    <description>analog inputs with 0 to 10VDC range</description>
+                </macro>
+                <macro>
+                    <macro>{$ANALOG2_MIN_THRESHOLD}</macro>
+                    <value>0</value>
+                    <description>analog inputs with 0 to 10VDC range</description>
+                </macro>
+                <macro>
+                    <macro>{$MEASUREMENT_INTERVAL}</macro>
+                    <value>10s</value>
+                </macro>
+                <macro>
+                    <macro>{$S1V1_MAX_THRESHOLD}</macro>
+                    <value>30</value>
+                </macro>
+                <macro>
+                    <macro>{$S1V1_MIN_THRESHOLD}</macro>
+                    <value>10</value>
+                </macro>
+            </macros>
+            <valuemaps>
+                <valuemap>
+                    <uuid>d9c031054f0949238332da8a0a6aee1b</uuid>
+                    <name>Digital Input State</name>
+                    <mappings>
+                        <mapping>
+                            <value>0</value>
+                            <newvalue>CLOSED</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>OPEN</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+                <valuemap>
+                    <uuid>a9e4ae3770054e55a3d8390fd54603ea</uuid>
+                    <name>Relay State</name>
+                    <mappings>
+                        <mapping>
+                            <value>0</value>
+                            <newvalue>OFF</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>ON</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+            </valuemaps>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <uuid>c00ccdc4ccb64b21bf21443a1d989c69</uuid>
+            <name>Analog 1</name>
+            <graph_items>
+                <graph_item>
+                    <color>1E88E5</color>
+                    <calc_fnc>ALL</calc_fnc>
+                    <item>
+                        <host>Teracom TCW220</host>
+                        <key>tcw220.analog1.value</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <uuid>323b9560b8be433e9b347329e48acb92</uuid>
+            <name>Sensor 1 Value 1</name>
+            <graph_items>
+                <graph_item>
+                    <color>EF6C00</color>
+                    <calc_fnc>ALL</calc_fnc>
+                    <item>
+                        <host>Teracom TCW220</host>
+                        <key>tcw220.sensor1.value1</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+</zabbix_export>
